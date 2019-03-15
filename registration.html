@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+      <title>Registration</title>
+      <meta charset="UTF-8">
+</head>
+
+<body align="center" style="background-color:powderblue;" background="bground.jpg">
+
+  	<table align="center">
+  	<tr>
+	    <td><button> <a href ="index.html">Home</button></td>
+	    <td><button> <a href ="films.html">Films</button></td>
+	    <td><button> <a href ="books.html">Books</button></td>
+	    <td><button> <a href ="musics.html">Musics</button></td>
+	    <td><button> <a href ="usefullinks.html">Useful Links</button></td>
+	    <td><button> <a href ="contactme.html">Contact Me</button></td>
+	    <td><button> <a href ="registration.html" style="font-size:22px ">Registration</button></td>
+  	</tr> 
+  	</table> 
+
+	<header>
+      <center>
+      <br>
+      	<h2><strong>You Can Register to My WebSite</strong></h2>
+      </center>
+    </header>
+
+    <form method="post">
+      	<fieldset>
+	        <legend>Registration Form</legend>
+			<label for="Name">Name and Surname:</label>
+			<input type="Text" name="Name"><br><br>
+			&ensp;&ensp;
+			<label for="Password">Password:&ensp;&ensp;&ensp;&ensp;</label> &ensp;&ensp;
+			<input type="Password" name="Username"><br><br>
+			&ensp;&ensp;&ensp;&ensp;
+			<label for="E-mail">E-mail:&ensp;</label>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+			<input type="Text" placeholder="abcde@example.com" name="E-mail">
+			<br><br>
+			<label for="Birthday">Date of Birth:&emsp;</label>&ensp;&ensp;
+	        <input type="Date" name="Birthday">
+			<br><br>&ensp;&ensp;&ensp;&ensp;
+			<label for="Department">Department:</label>&ensp;&ensp;&ensp;&ensp;
+			<select>
+				<option value="Industrial Eng">Industrial Engineering</option>
+				<option value="Mechanical Eng">Mechanical Engineering</option>
+				<option value="Computer Eng">Computer Engineering</option>
+				<option value="Environmental Eng">Environmental Engineering</option>
+				<option value="Electrical Eng">Electrical Engineering</option>
+				<option value="Civil Eng">Civil Engineering</option>	
+			</select> <br><br>
+
+			<label for="Gender">Gender:</label>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+			<select>
+				<option value="Female">Female</option>
+				<option value="Male">Male</option>
+			</select><br><br>
+
+			<table align="center">
+				<tr>
+					<td>
+					&ensp;&ensp;&ensp;&ensp;<label for="Message"> Message:</label>&ensp;&ensp;&ensp;&ensp;&ensp;
+					</td>
+					<td align="center">
+				    <textarea name="message" rows="5" cols="22" ></textarea>
+				    </td>
+				 </tr>
+			</table><br><br>
+			&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+
+			<label for="uploadpic" > Upload Your Photo: </label>&ensp;&ensp;
+	        <input type="file" name="PhotoToUpload" id="uploadpic">
+	        <br><br><br>
+	        
+	        <label for="cb">Your Interests </label> <br>
+
+	        <input type="checkbox" name="travel" id="travel"> Travel <br>
+	        <input type="checkbox" name="music" id="music"> Music <br>
+	        <input type="checkbox" name="cinem" id="cinema"> Cinema  <br>
+	        <input type="checkbox" name="game" id="gaming"> Gaming <br>
+	        <input type="checkbox" name="spor" id="sport"> Sports <br>
+
+      	</fieldset> 
+    </form> <br>
+
+          	<input type="submit" value="Submit" onclick="alert('Successfully Registered!');">
+          	<input type="submit" value="Reset" ><br><br>
+
+        <a href="index.html"> <img src="https://image.flaticon.com/icons/svg/25/25694.svg" style="width: 45px; height: 45px"></a>
+
+</body>
+</html>
