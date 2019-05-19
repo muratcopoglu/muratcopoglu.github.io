@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title> Brick Game </title>
+    <link rel="stylesheet" type="text/css" href="brickgame.css">
+     
+</head>
+<body>
+<canvas id="myCanvas" width="470" height="310"></canvas>
+<p id="scored" name="score" >Score: </p>
+<script>
+var score = 0;
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+var blokwidth = 100;
+var blockHeight = 25;
+var blockarray= [1, 1, 1, 1, 1];;
+var x = 245;
+var y = 275;
+var dx = -2;
+var dy = -2.25;
+
+var stickH = 15;
+var stickW = 80;
+var stickX = 160;
+var stichY = 290;
+
+var ballR = 7;
+var ballColor = "lightBlue";
+
+var rightPressed = false;
+var leftPressed = false;
+var greenX = 320;
+var greenY = 20;
+var purpleX = 115;
+var purpleY = 60;
+var yellowX = 240;
+var yellowY = 60;
+var redX = 50;
+var redY = 20;
+var blueX = 180;
+var blueY = 20;
+
+
+function keyDownHandler(e) {
+	if(e.key == "Right" || e.key == "ArrowRight") {
+    rightPressed = true;
+	}
+	else if(e.key == "Left" || e.key == "ArrowLeft") {
+    leftPressed = true;
+	}
+	}
+
+function keyUpHandler(e) {
+	if(e.key == "Right" || e.key == "ArrowRight") {
+	    rightPressed = false;
+	}
+	else if(e.key == "Left" || e.key == "ArrowLeft") {
+	    leftPressed = false;
+	}
+	}
+
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
+
+
+
+function drawObs() {
+	//drawing the obstacle
+	ctx.beginPath();
+	ctx.rect(125, 185, 135, 10);
+	ctx.fillStyle = "black";
+	ctx.fill();
+	ctx.closePath(); 
+	}
+
+function drawBall() {
+	ctx.beginPath();
+	ctx.arc(x, y, ballR, 0, Math.PI*2);
+	ctx.fillStyle = ballColor;
+	ctx.fill();
+	ctx.closePath();
+	x += dx;
+	y += dy;
+	}
+
+function drawStick() {
+	ctx.beginPath();
+	ctx.rect(stickX, canvas.height - stickH, stickW, stickH);
+	ctx.fillStyle = "lightBlue";
+	ctx.fill();
+	ctx.closePath();
+
+	}
+
+function gblock() {
+	ctx.beginPath();
+	ctx.rect(greenX, greenY, blokwidth, blockHeight);
+	ctx.fillStyle = "green";
+	ctx.fill();
+	ctx.closePath();
+	}
+
+
+function pblock() {
+	ctx.beginPath();
+	ctx.rect(purpleX, purpleY, blokwidth, blockHeight);
+	ctx.fillStyle = "purple";
+	ctx.fill();
+	ctx.closePath();
+	}
+
+
+
+function yblock() {
+	ctx.beginPath();
+	ctx.rect(yellowX, yellowY, blokwidth, blockHeight);
+	ctx.fillStyle = "yellow";
+	ctx.fill();
+	ctx.closePath();
+	}
+
+
+
+function rblock() {
+	ctx.beginPath();
+	ctx.rect(redX, redY, blokwidth, blockHeight);
+	ctx.fillStyle = "red";
+	ctx.fill();
+	ctx.closePath();
+	}
+
+function bblock() {
+	ctx.beginPath();
+	ctx.rect(blueX, blueY, blokwidth, blockHeight);
+	ctx.fillStyle = "blue";
+	ctx.fill();
+	ctx.closePath();
+	}
+
+
+function drawBlocks() {
+	if(blockarray[0]==1) {rblock();}
+	if(blockarray[1]==1) {bblock();}
+	if(blockarray[2]==1) {gblock();}
+	if(blockarray[3]==1) {pblock();}
+	if(blockarray[4]==1) {yblock();}
+	}
+
+function draw() {
+
+	if(blockarray[0]==0 && blockarray[1]==0 && blockarray[2]==0 && blockarray[3]==0 && blockarray[4]==0 ){
+	      alert("CONGRATULATIONS YOU WIN!");
+	      document.location.reload();
+	      clearInterval(interval);
+	}
+
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	drawBall();
+	drawStick();
+	drawObs();
+	drawBlocks();
+
+
+	if(x + dx > canvas.width-ballR || x + dx < ballR) {
+	    dx = -dx;
+	}
+
+	if(y + dy < ballR) {
+	    dy = -dy;
+	} 
+	else if(y + dy > canvas.height-ballR) {
+
+	    if(x > stickX-ballR && x < stickX + ballR + stickW) { 
+	        dy = -dy;
+	    }
+	    else {
+	        alert("GAME OVER");
+	        document.location.reload();
+	        clearInterval(interval);
+	    }
+	}
+
+	if((x+ballR==125 || x-ballR==260) && y>175 && y<205){
+	  dx = -dx;
+	  dy = -dy;
+	}
+	if(RCColliding(x,y,ballR,135,10,125,185)){
+	  dy = -dy;
+	}
+
+	if(RCColliding(x,y,ballR,blokwidth, blockHeight,redX, redY)){
+	  dy = -dy;
+	  blockarray[0] = 0;
+	  ballColor = "red";
+	  redY = -500;
+	  redX = -500;
+	  score += 20;
+	  var scoreStr = "Score: "+ score;
+	  document.getElementById("scored").innerHTML = scoreStr;
+	}
+
+	if(RCColliding(x,y,ballR,blokwidth, blockHeight,blueX, blueY)){
+	  dy = -dy;
+	  blockarray[1] = 0;
+	  ballColor = "blue";
+	  blueY = -500;
+	  blueX = -500;
+	  score += 40;
+	  var scoreStr = "Score: "+ score;
+	  document.getElementById("scored").innerHTML = scoreStr;
+	}
+
+	if(RCColliding(x,y,ballR,blokwidth, blockHeight,greenX, greenY)){
+	  dy = -dy;
+	  blockarray[2] = 0;
+	  greenY = -500;
+	  greenX = -500;
+	  ballColor = "green";
+	  score += 80;
+	  var scoreStr = "Score: "+ score;
+	  document.getElementById("scored").innerHTML = scoreStr;
+	}
+
+	if(RCColliding(x,y,ballR,blokwidth, blockHeight,purpleX, purpleY)){
+	  dy = -dy;
+	  blockarray[3] = 0;
+	  purpleY = -500;
+	  purpleX = -500;
+	  ballColor = "purple";
+	  score += 60;
+	  var scoreStr = "Score: "+ score;
+	  document.getElementById("scored").innerHTML = scoreStr;
+	}
+
+	if(RCColliding(x,y,ballR,blokwidth, blockHeight,yellowX, yellowY)){
+	  dy = -dy;
+	  blockarray[4] = 0;
+	  yellowY = -500;
+	  yellowX = -500;
+	  ballColor = "yellow";
+	  score += 50;
+	  var scoreStr = "Score: "+ score;
+	  document.getElementById("scored").innerHTML = scoreStr;
+	}
+
+	if(rightPressed && stickX < canvas.width - stickW) {
+	stickX += 5;
+	}
+	else if(leftPressed && stickX > 0) {
+	stickX -= 5;
+	}
+	}
+
+	function RCColliding(cx, cy, cr, rw, rh, rx, ry){
+
+	var half = { x: rw/2, y: rh/2 };
+	var center = {
+	    x: cx - (rx+half.x),
+	    y: cy - (ry+half.y)};
+	var side = {
+	    x: Math.abs (center.x) - half.x,
+	    y: Math.abs (center.y) - half.y};
+
+	if (side.x >  cr || side.y >  cr) 
+	    return false; 
+	if (side.x < -cr && side.y < -cr) 
+	    return true;
+	if (side.x < 0 || side.y < 0) 
+	    return true;
+
+	return side.x*side.x + side.y*side.y  < cr*cr;
+	}
+
+	var interval = setInterval(draw, 10);
+</script>
+</body>
+</html>
